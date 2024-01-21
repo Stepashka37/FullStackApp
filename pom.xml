@@ -13,13 +13,12 @@
 	<artifactId>dimax-api</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>full-stack-app</name>
-	<organization>
-		<name>stepashka37</name>
-		<url>https://stepashka37.com</url>
-	</organization>
 
 	<properties>
 		<java.version>17</java.version>
+		<docker.username>stepashka37</docker.username>
+		<docker.image.name>dimax-api</docker.image.name>
+		<docker.image.tag/>
 	</properties>
 
 	<dependencies>
@@ -200,7 +199,7 @@
 						</platforms>
 					</from>
 					<to>
-						<image>docker.io/${organization.name}/${project.artifactId}:${project.version}</image>
+						<image>docker.io/${docker.username}/${docker.image.name}:${docker.image.tag}</image>
 						<tags>
 							<tag>latest</tag>
 						</tags>
