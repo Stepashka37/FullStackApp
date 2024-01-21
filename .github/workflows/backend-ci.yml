@@ -42,7 +42,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: fateyan/action-discord-notifier@v1
+      - uses: fateyan/action-discord-notifier@v1.2.0
         with:
           message-title: New pull request
           webhook: https://discord.com/api/webhooks/1201555095750463638/TaSVoCC9zEs3VUGdT8CuRO2gSabCyi_n2bsu1oE2-qJpbJAmFagC5-L4uBodJvt8QON4
