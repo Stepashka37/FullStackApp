@@ -9,6 +9,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 import ru.dimax.UtilTest;
 import ru.dimax.dto.CustomerRegistrationRequest;
+import ru.dimax.enums.Gender;
 import ru.dimax.model.Customer;
 
 import java.util.List;
@@ -34,10 +35,13 @@ public class CustomerIT {
 
         Integer age = testData.randomAge();
 
+        Gender gender = testData.maleGender();
+
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name,
                 email,
-                age
+                age,
+                gender
         );
         // When
         webTestClient.post()
@@ -65,7 +69,8 @@ public class CustomerIT {
                 1,
                 name,
                 email,
-                age
+                age,
+                gender
         );
 
         assertThat(allCustomers)

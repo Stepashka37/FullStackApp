@@ -39,7 +39,8 @@ public class CustomerRepositoryTest extends AbstractUnitTest {
                 1,
                 testData.randomName(),
                 testData.randomEmail(),
-                testData.randomAge()
+                testData.randomAge(),
+                testData.femaleGender()
         );
 
         // When
@@ -57,14 +58,17 @@ public class CustomerRepositoryTest extends AbstractUnitTest {
                 1,
                 testData.randomName(),
                 testData.randomEmail(),
-                testData.randomAge()
+                testData.randomAge(),
+                testData.maleGender()
         );
 
         Customer customer2 = new Customer(
                 2,
                 testData.randomName(),
                 testData.randomEmail(),
-                testData.randomAge()
+                testData.randomAge(),
+                testData.maleGender()
+
         );
 
         Customer saved1 = underTest.save(customer1);

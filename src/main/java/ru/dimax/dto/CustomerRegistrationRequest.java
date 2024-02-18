@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.dimax.enums.Gender;
 
 import java.util.Objects;
 
@@ -16,17 +17,18 @@ public class CustomerRegistrationRequest {
     private String name;
     private String email;
     private Integer age;
+    private Gender gender;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CustomerRegistrationRequest that = (CustomerRegistrationRequest) o;
-        return Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(age, that.age);
+        CustomerRegistrationRequest request = (CustomerRegistrationRequest) o;
+        return Objects.equals(name, request.name) && Objects.equals(email, request.email) && Objects.equals(age, request.age) && gender == request.gender;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, email, age);
+        return Objects.hash(name, email, age, gender);
     }
 }

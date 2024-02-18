@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.dimax.UtilTest;
 import ru.dimax.dto.CustomerRegistrationRequest;
 import ru.dimax.dto.CustomerUpdateRequest;
+import ru.dimax.enums.Gender;
 import ru.dimax.mapper.CustomerMapper;
 import ru.dimax.model.Customer;
 import ru.dimax.repository.CustomerRepository;
@@ -59,7 +59,8 @@ class CustomerServiceTest {
                 1,
                 testData.randomName(),
                 testData.randomEmail(),
-                testData.randomAge()
+                testData.randomAge(),
+                testData.maleGender()
         );
 
         when(repository.findById(1)).thenReturn(Optional.of(customer1));
@@ -80,17 +81,21 @@ class CustomerServiceTest {
 
         Integer age = testData.randomAge();
 
+        Gender gender = testData.maleGender();
+
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name,
                 email,
-                age
+                age,
+                gender
         );
 
         Customer customer1 = new Customer(
                 1,
                 name,
                 email,
-                age
+                age,
+                gender
         );
 
         when(repository.save(any())).thenReturn(customer1);
@@ -110,7 +115,8 @@ class CustomerServiceTest {
                 1,
                 testData.randomName(),
                 testData.randomEmail(),
-                testData.randomAge()
+                testData.randomAge(),
+                testData.femaleGender()
         );
 
         when(repository.findById(1)).thenReturn(Optional.of(customer1));
@@ -130,6 +136,8 @@ class CustomerServiceTest {
 
         Integer age = testData.randomAge();
 
+        Gender gender = testData.maleGender();
+
         CustomerUpdateRequest request = new CustomerUpdateRequest(
                 name,
                 email,
@@ -140,7 +148,8 @@ class CustomerServiceTest {
                 1,
                 name,
                 email,
-                age
+                age,
+                gender
         );
 
         when(repository.findById(1)).thenReturn(Optional.of(customer1));
