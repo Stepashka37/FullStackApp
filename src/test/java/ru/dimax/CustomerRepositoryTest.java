@@ -40,15 +40,17 @@ public class CustomerRepositoryTest extends AbstractUnitTest {
                 testData.randomName(),
                 testData.randomEmail(),
                 testData.randomAge(),
-                testData.femaleGender()
+                testData.femaleGender(),
+                testData.getPassword()
         );
 
         // When
 
         Customer saved = underTest.save(customer);
+
         // Then
 
-        assertThat(saved).isEqualTo(customer);
+        assertThat(saved).isEqualToIgnoringGivenFields(customer, "id");
     }
 
     @Test
@@ -59,7 +61,8 @@ public class CustomerRepositoryTest extends AbstractUnitTest {
                 testData.randomName(),
                 testData.randomEmail(),
                 testData.randomAge(),
-                testData.maleGender()
+                testData.maleGender(),
+                testData.getPassword()
         );
 
         Customer customer2 = new Customer(
@@ -67,8 +70,8 @@ public class CustomerRepositoryTest extends AbstractUnitTest {
                 testData.randomName(),
                 testData.randomEmail(),
                 testData.randomAge(),
-                testData.maleGender()
-
+                testData.maleGender(),
+                testData.getPassword()
         );
 
         Customer saved1 = underTest.save(customer1);

@@ -4,11 +4,15 @@ import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.dimax.UtilTest;
 import ru.dimax.dto.CustomerRegistrationRequest;
+import ru.dimax.dto.CustomerResponse;
 import ru.dimax.dto.CustomerUpdateRequest;
 import ru.dimax.enums.Gender;
 import ru.dimax.mapper.CustomerMapper;
@@ -32,7 +36,10 @@ class CustomerServiceTest {
     private CustomerRepository repository;
 
     @Mock
-    private CustomerMapper mapper;
+    private PasswordEncoder encoder;
+
+    @Spy
+    private CustomerMapper mapper = Mappers.getMapper(CustomerMapper.class);
 
     private Faker FAKER = new Faker();
 
@@ -40,7 +47,7 @@ class CustomerServiceTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new CustomerService(repository, mapper);
+        underTest = new CustomerService(repository, mapper, encoder);
     }
 
     @Test
@@ -60,7 +67,8 @@ class CustomerServiceTest {
                 testData.randomName(),
                 testData.randomEmail(),
                 testData.randomAge(),
-                testData.maleGender()
+                testData.maleGender(),
+                testData.getPassword()
         );
 
         when(repository.findById(1)).thenReturn(Optional.of(customer1));
@@ -83,9 +91,12 @@ class CustomerServiceTest {
 
         Gender gender = testData.maleGender();
 
+        String password = testData.getPassword();
+
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 name,
                 email,
+                password,
                 age,
                 gender
         );
@@ -95,15 +106,21 @@ class CustomerServiceTest {
                 name,
                 email,
                 age,
-                gender
+                gender,
+                testData.getPassword()
         );
 
         when(repository.save(any())).thenReturn(customer1);
 
+        String passwordHash = "23o2ot4tf2,m";
+
+        when(encoder.encode(any())).thenReturn(passwordHash);
+
         // When
 
-        underTest.saveCustomer(request);
+        CustomerResponse response = underTest.saveCustomer(request);
         // Then
+        assertNotNull(response);
         verify(repository).save(any());
 
     }
@@ -116,7 +133,8 @@ class CustomerServiceTest {
                 testData.randomName(),
                 testData.randomEmail(),
                 testData.randomAge(),
-                testData.femaleGender()
+                testData.femaleGender(),
+                testData.getPassword()
         );
 
         when(repository.findById(1)).thenReturn(Optional.of(customer1));
@@ -149,7 +167,8 @@ class CustomerServiceTest {
                 name,
                 email,
                 age,
-                gender
+                gender,
+                testData.getPassword()
         );
 
         when(repository.findById(1)).thenReturn(Optional.of(customer1));

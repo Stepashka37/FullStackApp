@@ -26,4 +26,8 @@ public class UtilTest {
     public Gender femaleGender() {
         return Gender.FEMALE;
     }
+
+    public String getPassword() {
+        return "password";
+    }
 }
