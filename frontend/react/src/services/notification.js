@@ -1,4 +1,4 @@
-import { createStandaloneToast } from '@chakra-ui/react'
+import { createStandaloneToast } from '@chakra-ui/toast'
 
 const { toast } = createStandaloneToast()
 
@@ -12,7 +12,7 @@ const notification = (title, description, status) => {
     })
 }
 
-export const successNotification = () => {
+export const successNotification = (title, description) => {
     notification(
         title,
         description,
@@ -20,7 +20,7 @@ export const successNotification = () => {
     )
 }
 
-export const errorNotification = () => {
+export const errorNotification = (title, description) => {
     notification(
         title,
         description,
