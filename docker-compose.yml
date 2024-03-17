@@ -19,7 +19,7 @@ services:
     container_name: dimax-api
     image: stepashka37/dimax-api
     environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/full_stack"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/full_stack
     ports:
       - "8088:8080"
     networks:
